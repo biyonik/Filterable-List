@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.css">
+    <title>Filterable List With Vanilla JS</title>
+</head>
+<body>
+    <div class="container">
+        <h1 class="align-center">
+            My Contacts
+        </h1>
+        <input type="text" id="filterInput" placeholder="Search names...">
+        <ul class="collection with-header" id="names">
+            <li class="collection-header">
+                <h5>A</h5>
+            </li>
+            <li class="collection-item">
+                <a href="">Abe</a>
+            </li>
+            <li class="collection-item">
+                <a href="">Adam</a>
+            </li>
+            <li class="collection-item">
+                <a href="">Alan</a>
+            </li>
+            <li class="collection-item">
+                <a href="">Anna</a>
+            </li>
+
+            <li class="collection-header">
+                <h5>B</h5>
+            </li>
+            <li class="collection-item">
+                <a href="">Brad</a>
+            </li>
+            <li class="collection-item">
+                <a href="">Bob</a>
+            </li>
+            <li class="collection-item">
+                <a href="">Bright</a>
+            </li>
+            <li class="collection-item">
+                <a href="">Burton</a>
+            </li>
+
+            <li class="collection-header">
+                <h5>C</h5>
+            </li>
+            <li class="collection-item">
+                <a href="">Carry</a>
+            </li>
+            <li class="collection-item">
+                <a href="">Courtney</a>
+            </li>
+            <li class="collection-item">
+                <a href="">Chris</a>
+            </li>
+            <li class="collection-item">
+                <a href="">Crown</a>
+            </li>
+        </ul>
+    </div>
+    <script>
+        // Get input element
+        // input elementi seçiliyor
+        let filterInput = document.getElementById('filterInput');
+        // Add event listener
+        // input elementine bir olay dinleyici atanıyor
+        // keyup olayı dinlenecek ve filterNames fonksiyonunu tetikleyecek
+        filterInput.addEventListener('keyup',filterNames);
+
+        function filterNames() {
+            // Get value of input
+            // input içine yazılan değer alınıyor
+            let filterValue = document.getElementById('filterInput').value.toUpperCase();
+            //console.log(filterValue);
+
+            // Get names ul
+            // 'names' id değerine sahip ul etiketi seçiliyor
+            let ul = document.getElementById('names');
+            // Get li's from ul
+            // seçilen ul tagı içindeki tüm li tagları bir değişkene(dizi değişken) atanıyor
+            let li = ul.querySelectorAll('li.collection-item');
+            
+            // Loop throug collection-item li's
+            // Bu dizi içerisinde döngü ile iterasyon yapılıyor
+            for (let i = 0; i < li.length; i++) {
+                // Döngü ile li tagları içerisinde iterasyon yapılıyor ve ilk a tagı seçiliyor
+                let a = li[i].getElementsByTagName('a')[0];
+
+                //console.log(a.innerHTML.toUpperCase().indexOf(filterValue));
+                // If matched
+                // eğer input içerisine yazılan değer a tagının içerisindeki değerde bulunuyor ise kelimenin
+                // başlangıç değeri -1 den büyük döner, bulunamıyor ise -1 döner
+                // Koşul uyuyor ise ilgili li tagının display değeri değişmez
+                // Koşul uymuyor ise ilgili li tagının display değerine none atanır ve görünmez
+                if(a.innerHTML.toUpperCase().indexOf(filterValue) > -1) {
+                    li[i].style.display = '';
+                } else {
+                    li[i].style.display = 'none';
+                }
+            }
+        }
+    </script>   
+</body>
+</html>
